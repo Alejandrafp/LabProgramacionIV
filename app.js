@@ -1,11 +1,16 @@
 require('dotenv').config()
-const express = require('express')
-const app = express()
+// const express = require('express')
+// const app = express()
 
 
-app.get('/', function(req,res){
-    res.send('Hello World')
-})
+const Server = require('./models/server')
+const server = new Server();
+server.listen();
+
+
+// app.get('/', function(req,res){
+//     res.send('Hello World')
+// })
 
 //app.listen(process.env.PORT)
 
@@ -13,7 +18,8 @@ app.get('/', function(req,res){
 //¿Si se ejecuta cual es el error?
 //No estaba instalado el express
 
-app.listen(process.env.PORT, function(){
-    console.log("El puerto esta corriendo el puerto TCP" + process.env.PORT)
+//Convertirlo a funcion flecha
+// app.listen(process.env.PORT, function(){
+//     console.log("El puerto esta corriendo el puerto TCP" + process.env.PORT)
 
-})
+// })
