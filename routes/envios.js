@@ -1,15 +1,16 @@
-const {Router} = require('express'); //ROUTER para destructurar un objeto y solo obtener lo que se ocupa de el
+const {Router} = require('express'); 
 const { 
-    getenvios, 
-    postenvios, 
-    putenvios, 
-    deleteenvios 
+    getEnvios, 
+    postEnvios, 
+    putEnvios, 
+    deleteEnvios 
 } = require('../controllers/envios');
-const router = Router(); //Inicializamos la funcion Router
-
-router.get('/', getenvios)
-router.post('/', postenvios)
-router.put('/', putenvios)
-router.delete('/', deleteenvios)            
+//Uso { Router } para destructurar un objeto y solo obtener lo que ocupo de el 
+const router = Router();
+//Inicializo la funcion Router
+router.get('/', getEnvios)
+router.post('/', postEnvios)
+router.put('/:id', putEnvios)
+router.delete('/:id', deleteEnvios)
 
 module.exports = router

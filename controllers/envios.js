@@ -1,41 +1,47 @@
-const {request, response} = require('express');
+const { request, response } = require('express')
 const { ListadoEnvios } = require('../models/envios');
+const { guardarDB, leerDB } = require('../helpers/gestorDB')
 
-const getenvios = (req = request, res = response) =>{
+const getEnvios = (req = request, res = response) => {
     let lista = new ListadoEnvios()
     let datosJSON = leerDB('envios');
     lista.cargarTareasFromArray(datosJSON)
     res.json(lista.listadoArr)
 }
 
-const postenvios = (req = request, res = response) =>{
+const postEnvios = (req = request, res = response) =>{
     let lista = new ListadoEnvios()
     let datosJSON = leerDB('envios');
     lista.cargarTareasFromArray(datosJSON)
-    lista.crearEnvio(req,body)
+    lista.crearEnvio(req.body)
     guardarDB(lista.listadoArr,'envios')
     res.send('Registro Creado')
 }
 
-
-// const postenvios = (req = request, res = response) =>{
-//     res.send('POST Enpoint para Envios')
-// }
-
-
-// const putenvios = (req = request, res = response) =>{
-//     res.send('PUT Enpoint para Envios')
-// }
-
-
-// const deleteenvios = (req = request, res = response) =>{
-//     res.send('DELETE Enpoint para Envios')
-// }
-
-module.exports ={
-    ListadoEnvios,
-    getenvios,
-    postenvios,
-    putenvios,
-    deleteenvios
+const putEnvios = (req = request, res = response) =>{
+    let lista = new ListadoEnvios()
+    let datosJSON = leerDB('envios');
+    lista.cargarTareasFromArray(datosJSON)
+    //funcion para actualizar
+    const datos = lista.listadoArr.map(item =>
+          item.id == req.params.id ? {"id":item.id, ...req.body}: item
+        );
+    guardarDB(datos,'envios')
+    res.send('Registro Actualizado')
+}
+    
+const deleteEnvios = (req = request, res = response) =>{
+    let lista = new ListadoEnvios()
+    let datosJSON = leerDB('envios');
+    lista.cargarTareasFromArray(datosJSON)
+    let data = lista.listadoArr.filter(item =>  item.id !== req.params.id)
+    guardarDB(data,'envios')
+    res.send('Registro Eliminado')
+}
+    
+module.exports = {
+    getEnvios,
+    postEnvios,
+    putEnvios,
+    deleteEnvios
 }

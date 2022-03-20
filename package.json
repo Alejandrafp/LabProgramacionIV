@@ -1,15 +1,15 @@
 {
   "name": "appenvios",
-  "version": "1.0.0",
-  "description": "\"Laboratorio HTTP 1\"",
+  "version": "0.0.1",
+  "description": "Laboratorio HTTP 1",
   "main": "app.js",
   "scripts": {
-    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "\"Laboratorio1\""
+    "laboratorio1"
   ],
-  "author": "Maria Funez",
+  "author": "Maria Alejandra Funez",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
