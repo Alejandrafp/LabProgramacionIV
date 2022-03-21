@@ -1,10 +1,16 @@
-const {Router} = require('express') 
+const {Router} = require('express'); 
+const { 
+    getSeguimiento, 
+    postSeguimiento, 
+    putSeguimiento, 
+    deleteSeguimiento 
+} = require('../controllers/seguimientos');
 //Uso { Router } para destructurar un objeto y solo obtener lo que ocupo de el 
 const router = Router();
 //Inicializo la funcion Router
-router.get('/', (req, res) => res.send('GET Endpoint para Seguimiento'))
-router.post('/', (req, res) => res.send('POST Endpoint para Seguimiento'))
-router.put('/', (req, res) => res.send('PUT Endpoint para Seguimiento'))
-router.delete('/', (req, res) => res.send('DELETE Endpoint para Seguimiento'))
+router.get('/', getSeguimiento)
+router.post('/', postSeguimiento)
+router.put('/:id', putSeguimiento)
+router.delete('/:id', deleteSeguimiento)
 
 module.exports = router

@@ -1,16 +1,16 @@
 const { Router } = require('express');
 const {
-    getDetallesEnvios,
-    postDetallesEnvios,
-    putDetallesEnvios,
-    deleteDetallesEnvios
+    getdetalleEnvios,
+    postdetalleEnvios,
+    putdetalleEnvios,
+    deletedetalleEnvios
 } = require('../controllers/detallesEnvios');
 
 const router = Router();
 
-router.get('/', getDetallesEnvios)
-router.post('/', postDetallesEnvios)
-router.put('/', putDetallesEnvios)
-router.delete('/', deleteDetallesEnvios)
+router.get('/', getdetalleEnvios)
+router.post('/', postdetalleEnvios)
+router.put('/:id', putdetalleEnvios)
+router.delete('/:id', deletedetalleEnvios)
 
 module.exports = router

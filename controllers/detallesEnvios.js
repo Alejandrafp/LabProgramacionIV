@@ -1,20 +1,47 @@
 const { request, response } = require('express')
+const { ListadodetalleEnvios } = require('../models/detallesEnvios');
+const { guardarDB, leerDB } = require('../helpers/gestorDB')
 
-const getDetallesEnvios = (req = request, res = response) =>
-    res.send('GET Endpoint para Detalles Envios')
+const getdetalleEnvios = (req = request, res = response) => {
+    let lista = new ListadodetalleEnvios()
+    let datosJSON = leerDB('detalleEnvios');
+    lista.cargarTareasFromArray(datosJSON)
+    res.json(lista.listadoArr)
+}
 
-const postDetallesEnvios = (req = request, res = response) =>
-    res.send('POST Endpoint para Detalles Envios')
+const postdetalleEnvios = (req = request, res = response) =>{
+    let lista = new ListadodetalleEnvios()
+    let datosJSON = leerDB('detalleEnvios');
+    lista.cargarTareasFromArray(datosJSON)
+    lista.creardetalleEnvio(req.body)
+    guardarDB(lista.listadoArr,'detalleEnvios')
+    res.send('Registro Creado')
+}
 
-const putDetallesEnvios = (req = request, res = response) =>
-    res.send('PUT Endpoint para Detalles Envios')
-
-const deleteDetallesEnvios = (req = request, res = response) =>
-    res.send('DELETE Endpoint para Detalles Envios')
-
+const putdetalleEnvios = (req = request, res = response) =>{
+    let lista = new ListadodetalleEnvios()
+    let datosJSON = leerDB('detalleEnvios');
+    lista.cargarTareasFromArray(datosJSON)
+    //funcion para actualizar
+    const datos = lista.listadoArr.map(item =>
+          item.id == req.params.id ? {"id":item.id, ...req.body}: item
+        );
+    guardarDB(datos,'detalleEnvios')
+    res.send('Registro Actualizado')
+}
+    
+const deletedetalleEnvios = (req = request, res = response) =>{
+    let lista = new ListadodetalleEnvios()
+    let datosJSON = leerDB('detalleEnvios');
+    lista.cargarTareasFromArray(datosJSON)
+    let data = lista.listadoArr.filter(item =>  item.id !== req.params.id)
+    guardarDB(data,'detalleEnvios')
+    res.send('Registro Eliminado')
+}
+    
 module.exports = {
-    getDetallesEnvios,
-    postDetallesEnvios,
-    putDetallesEnvios,
-    deleteDetallesEnvios
+    getdetalleEnvios,
+    postdetalleEnvios,
+    putdetalleEnvios,
+    deletedetalleEnvios
 }
